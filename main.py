@@ -1,24 +1,22 @@
 import math
 from fastapi import FastAPI, status, HTTPException
-from db import Base, engine, Todo
-from sqlalchemy.orm import Session
-from models.to_do_model import Todo_request
+from db import engine, session
+from models.todo_model import Base, Todo
+from models.todo_request_model import Todo_request
 
 # Create the database
 Base.metadata.create_all(engine)
 
 app = FastAPI()
 
-# create a new database session
-session = Session(bind=engine, expire_on_commit=False)
-
 @app.get("/todo{page}")
-def get_todot():
+def get_todos():
     # get all todo items
     todos = session.query(Todo).all()
     count_todos = session.query(Todo).count()
     item_per_page = 5
     pages_lenght = math.ceil(count_todos / item_per_page)
+
     # close the session   
     session.close()
     return todos, count_todos, pages_lenght
@@ -30,12 +28,10 @@ def add_todo(todo: Todo_request):
     # add it to the session and commit it
     session.add(tododb)
     session.commit()
-    # grab the id given to the object from the database
-    id = tododb.id
+    session.refresh(tododb)
     # close the session
     session.close()
-    # return the id
-    return f"created todo item with id {id}"
+    return tododb
 
 @app.delete("/todo/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_todo(id: int):
@@ -65,6 +61,7 @@ def update_todo(id: int, text: str, completed: bool):
     # update todo item with the given text (if an item with the given id was found)
     if todo:
         todo.text = text
+        todo.completed = completed
         # todo.completed = 
         session.commit()
     # close the session
