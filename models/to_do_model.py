@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
-class Todo_model(BaseModel):
-    id: str
+class Todo_request(BaseModel):
     text: str
     completed: bool
-    filter: str
