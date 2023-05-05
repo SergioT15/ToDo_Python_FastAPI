@@ -1,4 +1,4 @@
 from pydantic import BaseModel
 
-class Todo_delete(BaseModel):
+class Todo_completed_all(BaseModel):
     comleted: bool
