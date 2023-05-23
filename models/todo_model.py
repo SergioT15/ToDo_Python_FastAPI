@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine, Column, String, Boolean, Integer
 from db import Base
 
+
 # Define To Do class inheriting from Base
 class Todo(Base):
     __tablename__ = "todos"
