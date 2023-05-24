@@ -16,7 +16,6 @@ def is_completed(filter_item):
 
 def get_todos(page: int, filter: str):
     filter_value = is_completed(filter)
-    # item_per_page = 5  # caps
     ITEM_PER_PAGE = 5
     query = session.query(Todo)
     if filter_value != None:
