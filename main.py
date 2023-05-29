@@ -27,6 +27,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# source /home/fusion/Desktop/Projects/Todo_Python_fastAPI/Todo_Python_fastAPI/bin/activate
+# source venv/bin/activate
 # uvicorn main:app --reload
-
+# deactivate
