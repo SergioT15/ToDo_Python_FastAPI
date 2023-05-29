@@ -27,6 +27,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# python3 -m venv venv
+# venv/bin/python -m pip install -r requirements.txt
 # source venv/bin/activate
 # uvicorn main:app --reload
 # deactivate
